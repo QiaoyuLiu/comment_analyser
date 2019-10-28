@@ -31,10 +31,36 @@ def create_entity(entity):
         session.close()
 
 
+# Get all comments witch has not been parsed (id greater than the current_id in properties.json)
 def get_all_comments(current_id):
     session = get_session()
     try:
         res_list = session.query(dm.Comment).filter(dm.Comment.id > current_id).all()
+        return res_list
+    except Exception as e:
+        session.rollback()
+        print(str(e))
+    finally:
+        session.close()
+
+
+# Get all entities with a weight greater than the value set in properties.json
+def get_all_entities(weight):
+    session = get_session()
+    try:
+        res_list = session.query(dm.Entity).filter(dm.Entity.weight > weight).all()
+        return res_list
+    except Exception as e:
+        session.rollback()
+        print(str(e))
+    finally:
+        session.close()
+
+
+def get_negative_weight_entities():
+    session = get_session()
+    try:
+        res_list = session.query(dm.Entity).filter(dm.Entity.weight < 0).all()
         return res_list
     except Exception as e:
         session.rollback()
