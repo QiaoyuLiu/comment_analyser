@@ -12,7 +12,7 @@ def entity_maker(comment):
         entity_obj = dm.Entity(entity=entity.name,
                                magnitude=entity.sentiment.magnitude,
                                score=entity.sentiment.score,
-                               comment=comment,
+                               comments=comment,
                                salience=entity.salience,
                                type=enums.Entity.Type(entity.type).name
                                )
@@ -23,7 +23,7 @@ def entity_maker(comment):
 
 # Give every entity a score of weight to find out the most valuable ones
 def entity_analyser(entity):
-    note = entity.comment.note
+    note = entity.comments.note
     score = entity.score
     # To find out what makes customers happy
     if note >= 8:

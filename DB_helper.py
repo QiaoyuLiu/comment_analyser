@@ -36,6 +36,7 @@ def get_all_comments(current_id):
     session = get_session()
     try:
         res_list = session.query(dm.Comment).filter(dm.Comment.id > current_id).all()
+        print(res_list)
         return res_list
     except Exception as e:
         session.rollback()
